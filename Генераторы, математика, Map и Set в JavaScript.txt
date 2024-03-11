@@ -1,0 +1,109 @@
+Задача1.1
+function* random(n, m) {
+    while (true) {
+        yield Math.floor(Math.random() * (m - n + 1)) + n;
+    }
+}
+
+const generator = random(1, 100);
+
+for (let i = 0; i < 10; i++) {
+    console.log(generator.next().value);
+}
+Задача1.2
+function* padovanSequence() {
+    let a = 1, b = 1, c = 1;
+    yield a;
+    yield b;
+    yield c;
+    while (true) {
+        const next = a + b;
+        yield next;
+        a = b;
+        b = c;
+        c = next;
+    }
+}
+
+const generator = padovanSequence();
+
+for (let i = 0; i < 10; i++) {
+    console.log(generator.next().value);
+}
+
+Задача1.3
+function* primeGenerator() {
+    let num = 2;
+    const primes = [];
+
+    while (true) {
+        let isPrime = true;
+        for (let prime of primes) {
+            if (num % prime === 0) {
+                isPrime = false;
+                break;
+            }
+        }
+        if (isPrime) {
+            primes.push(num);
+            yield num;
+        }
+        num++;
+    }
+}
+
+const generator = primeGenerator();
+
+for (let i = 0; i < 10; i++) {
+    console.log(generator.next().value);
+}
+
+Задача2.1
+function countLetters(str) {
+    const letterMap = new Map();
+
+    for (let char of str) {
+        if (letterMap.has(char)) {
+            letterMap.set(char, letterMap.get(char) + 1);
+        } else {
+            letterMap.set(char, 1);
+        }
+    }
+
+    return letterMap;
+}
+
+const text = "hello world";
+const letterCounts = countLetters(text);
+
+console.log(letterCounts);
+Задача2.2
+function isPrime(num) {
+    if (num <= 1n) return false;
+    if (num <= 3n) return true;
+    if (num % 2n === 0n || num % 3n === 0n) return false;
+    let i = 5n;
+    while (i * i <= num) {
+        if (num % i === 0n || num % (i + 2n) === 0n) return false;
+        i += 6n;
+    }
+    return true;
+}
+
+function getPrime(n) {
+    let count = 0;
+    let num = 2n;
+
+    while (count < n) {
+        if (isPrime(num)) {
+            count++;
+        }
+        num++;
+    }
+
+    return num - 1n;
+}
+
+console.log(getPrime(1));
+console.log(getPrime(5));
+console.log(getPrime(10));

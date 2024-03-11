@@ -1,0 +1,126 @@
+Задача1
+function maxDifference(arr) {
+    if (arr.length < 2) {
+        return 0;
+    }
+
+    let maxDiff = arr[1] - arr[0];
+    let minElement = arr[0];
+
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] - minElement > maxDiff) {
+            maxDiff = arr[i] - minElement;
+        }
+        if (arr[i] < minElement) {
+            minElement = arr[i];
+        }
+    }
+
+    return maxDiff;
+}
+
+const array = [7, 1, 5, 3, 6, 4];
+console.log(maxDifference(array)); 
+
+function removeDuplicates(arr) {
+    return [...new Set(arr)];
+}
+
+const array = [1, 2, 2, 3, 4, 4, 5];
+console.log(removeDuplicates(array));
+
+function filterByIsDone(arr) {
+    return arr.filter(obj => obj.isDone === true);
+}
+
+const objects = [
+    {id: 1, isDone: true}, 
+    {id: 2, isDone: false},
+    {id: 3, isDone: true}
+];
+console.log(filterByIsDone(objects)); 
+
+
+Задача2
+function findElementsGreaterThan(arr, number) {
+    return arr.filter(item => item > number);
+}
+
+const array = [1, 4, 6, 3, 2];
+const threshold = 2;
+console.log(findElementsGreaterThan(array, threshold));
+
+
+function flattenArray(arr) {
+    return arr.reduce((flat, item) => {
+        if (Array.isArray(item)) {
+            flat.push(...flattenArray(item));
+        } else {
+            flat.push(item);
+        }
+        return flat;
+    }, []);
+}
+
+const array = [1, 4, [34, 1, 20], [6, [6, 12, 8], 6]];
+console.log(flattenArray(array));
+
+Задача3
+function countZeroSumPairs(arr) {
+    let count = 0;
+    const numCount = {};
+
+    for (let num of arr) {
+        numCount[num] = (numCount[num] || 0) + 1;
+    }
+
+    for (let num of arr) {
+        const complement = -num;
+        if (numCount[complement]) {
+            count += numCount[complement];
+            if (complement === num) {
+                count--;
+            }
+        }
+    }
+
+    return count / 2;
+}
+
+console.log(countZeroSumPairs([-7, 12, 4, 6, -4, -12, 0]));
+console.log(countZeroSumPairs([-1, 2, 4, 7, -4, 1, -2]));
+console.log(countZeroSumPairs([-1, 1, 0, 1]));
+console.log(countZeroSumPairs([-1, 1, -1, 1]));
+console.log(countZeroSumPairs([1, 1, 1, 0, -1]));
+console.log(countZeroSumPairs([0, 0]));
+console.log(countZeroSumPairs([]));
+
+function countZeroSumTriples(arr) {
+    let count = 0;
+    const numCount = {};
+
+    for (let num of arr) {
+        numCount[num] = (numCount[num] || 0) + 1;
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+            const sum = arr[i] + arr[j];
+            const complement = -sum;
+            if (numCount[complement]) {
+                count += numCount[complement];
+            }
+        }
+    }
+
+    return count / 3;
+}
+
+console.log(countZeroSumTriples([-7, 12, 4, 6, -4, -12, 0]));
+console.log(countZeroSumTriples([-1, 2, 4, 7, -4, 1, -2]));
+console.log(countZeroSumTriples([-1, 1, 0, 1]));
+console.log(countZeroSumTriples([-1, 1, -1, 1]));
+console.log(countZeroSumTriples([1, 1, 1, 0, -1]));
+console.log(countZeroSumTriples([0, 0]));
+console.log(countZeroSumTriples([]));
+
